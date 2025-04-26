@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+.box-solid-shadow {
+  box-shadow: 4px 4px 0px #000000;
+}
+
+@keyframes bounceDrop {
+  0% {
+    transform: translateY(0px);
+  }
+  30% {
+    transform: translateY(6px);
+  }
+  50% {
+    transform: translateY(0px);
+  }
+  70% {
+    transform: translateY(3px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.bounce-drop {
+  animation: bounceDrop 0.6s ease-in-out;
+}
