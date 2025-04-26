@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   motion,
   useMotionValue,
@@ -9,18 +9,12 @@ import {
 } from "framer-motion";
 
 interface CardProps {
-  setIsVisible: (visible: boolean) => void;
   setInputValue: (text: string) => void;
   title: string;
   placeholder: string;
 }
 
-export default function Card({
-  setIsVisible,
-  setInputValue,
-  title,
-  placeholder,
-}: CardProps) {
+export default function Card({ setInputValue, title, placeholder }: CardProps) {
   const [textInput, setTextInput] = useState("");
 
   const x = useMotionValue(0);
@@ -50,7 +44,6 @@ export default function Card({
         transition: { duration: 0.5 },
       });
       setInputValue(textInput);
-      setIsVisible(false);
     } else {
       controls.start({
         x: 0,
@@ -59,6 +52,17 @@ export default function Card({
     }
   };
 
+  useEffect(() => {
+    controls.start({
+      scale: [0, 0.5, 1.05, 1],
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    });
+  }, [controls]);
+
   return (
     <motion.div
       drag="x"
@@ -66,7 +70,7 @@ export default function Card({
       style={{ x, opacity }}
       animate={controls}
       onDragEnd={handleDragEnd}
-      initial={{ scale: 1 }}
+      initial={{ scale: 0, opacity: 0 }}
       exit={{ scale: 0.1, opacity: 0 }}
       transition={{ duration: 0.3 }}
       className="w-[196px] flex flex-col gap-[10px] p-3 bg-black border border-[#DBDBDB] box-solid-shadow text-white"

@@ -3,8 +3,8 @@
 import PlayersPanel from "@/components/PlayersPanel";
 import { PlayerStatusType } from "@/lib/type";
 import Card from "@/components/Card";
-import { useState } from "react";
-import { AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function GameTodPage() {
   const playersStatus: PlayerStatusType[] = [
@@ -18,24 +18,54 @@ export default function GameTodPage() {
     "none",
   ];
 
+  const [currentCardIndex, setCurrentCardIndex] = useState(0);
+  const [truthValue, setTruthValue] = useState("");
+  const [dareValue, setDareValue] = useState("");
   const [isVisible, setIsVisible] = useState(true);
-  const [cardValue, setCardValue] = useState("");
+  const [isDone, setIsDone] = useState(false);
+
+  const handleCardSubmit = (text: string) => {
+    if (currentCardIndex === 0) {
+      setTruthValue(text);
+      setCurrentCardIndex(1);
+    } else {
+      setDareValue(text);
+      setIsVisible(false);
+    }
+  };
+
+  const titles = ["your truth card...", "your dare card..."];
+  const placeholders = [
+    "ex. What is your biggest fear...",
+    "ex. I dare you to eat a spoon of wasabi...",
+  ];
+
+  useEffect(() => {
+    if (truthValue.trim() && dareValue.trim()) {
+      setIsDone(true);
+    } else {
+      setIsDone(false);
+    }
+  }, [truthValue, dareValue, isDone]);
 
   return (
-    <div className="flex flex-col gap-9">
+    <div className="flex flex-col items-center gap-9">
       <PlayersPanel players={playersStatus} />
-      <AnimatePresence>
+
+      <AnimatePresence mode="wait">
         {isVisible && (
           <Card
-            setIsVisible={setIsVisible}
-            setInputValue={setCardValue}
-            title="your truth card..."
-            placeholder="ex. What is your biggest fear..."
+            key={currentCardIndex}
+            setInputValue={handleCardSubmit}
+            title={titles[currentCardIndex]}
+            placeholder={placeholders[currentCardIndex]}
           />
         )}
       </AnimatePresence>
-      <p className="text-xs text-white text-center">
-        swipe card if you are done
+      <p
+        className={`${isDone ? "text-2xl" : "text-xs"} text-white text-center`}
+      >
+        {isDone ? "hold screen to start" : "swipe horizontally if you are done"}
       </p>
     </div>
   );
