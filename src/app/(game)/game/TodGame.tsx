@@ -4,9 +4,17 @@ import PlayersPanel from "@/components/PlayersPanel";
 import { PlayerStatusType } from "@/lib/type";
 import Card from "@/components/Card";
 import { useState, useEffect } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 
-export default function GameTodPage() {
+interface GameTodPageProps {
+  setIsDone: (value: boolean) => void;
+  isCompletedHold: boolean;
+}
+
+export default function GameTodPage({
+  setIsDone,
+  isCompletedHold,
+}: GameTodPageProps) {
   const playersStatus: PlayerStatusType[] = [
     "join",
     "ready",
@@ -22,7 +30,6 @@ export default function GameTodPage() {
   const [truthValue, setTruthValue] = useState("");
   const [dareValue, setDareValue] = useState("");
   const [isVisible, setIsVisible] = useState(true);
-  const [isDone, setIsDone] = useState(false);
 
   const handleCardSubmit = (text: string) => {
     if (currentCardIndex === 0) {
@@ -46,7 +53,7 @@ export default function GameTodPage() {
     } else {
       setIsDone(false);
     }
-  }, [truthValue, dareValue, isDone]);
+  }, [truthValue, dareValue, setIsDone]);
 
   return (
     <div className="flex flex-col items-center gap-9">
@@ -62,10 +69,12 @@ export default function GameTodPage() {
           />
         )}
       </AnimatePresence>
-      <p
-        className={`${isDone ? "text-2xl" : "text-xs"} text-white text-center`}
-      >
-        {isDone ? "hold screen to start" : "swipe horizontally if you are done"}
+      <p className="text-xs text-white text-center">
+        {isCompletedHold
+          ? "safe"
+          : truthValue && dareValue
+          ? "hold screen to start"
+          : "swipe horizontally if you are done"}
       </p>
     </div>
   );
