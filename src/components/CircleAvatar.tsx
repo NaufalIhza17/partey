@@ -1,4 +1,4 @@
-import { statusColor } from "@/lib/const";
+import { statusColor } from "@/constants/statusColor";
 
 interface CircleAvatarProps {
   status: "join" | "ready" | "fill" | "not-fill" | "vote-leave" | "none";

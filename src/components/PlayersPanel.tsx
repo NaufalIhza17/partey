@@ -1,5 +1,5 @@
 import CircleAvatar from "./CircleAvatar";
-import { PlayerStatusType } from "@/lib/type";
+import { PlayerStatusType } from "@/types/player";
 
 interface PlayersPanelProps {
   displayNumbers?: boolean;

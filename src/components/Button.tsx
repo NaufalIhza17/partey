@@ -2,16 +2,19 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useGameStore } from "@/lib/store/useGameStore";
 
 interface ButtonProps {
   path: string;
   text: string;
   dark?: boolean;
+  endRound?: boolean;
 }
 
-export default function Button({ path, text, dark }: ButtonProps) {
+export default function Button({ path, text, dark, endRound }: ButtonProps) {
   const [isLeaving, setIsLeaving] = useState(false);
   const router = useRouter();
+  const { incrementRound } = useGameStore();
 
   return (
     <button
@@ -22,6 +25,9 @@ export default function Button({ path, text, dark }: ButtonProps) {
       } ${isLeaving ? "bounce-drop" : "hover:-translate-y-1"}`}
       onClick={() => {
         router.push(`/${path}`);
+        if (endRound) {
+          incrementRound();
+        }
       }}
     >
       <p className="font-medium text-[32px] select-none text-white">{text}</p>

@@ -80,7 +80,7 @@ export default function Card({ setInputValue, title, placeholder }: CardProps) {
         value={textInput}
         onChange={(e) => setTextInput(e.target.value)}
         placeholder={placeholder}
-        className="text-xl font-medium w-[172px] h-[183px] outline-none focus:outline-none resize-none "
+        className="text-xl font-medium w-[172px] h-[183px] outline-none focus:outline-none resize-none"
       />
     </motion.div>
   );

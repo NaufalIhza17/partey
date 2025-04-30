@@ -3,7 +3,7 @@
 import Button from "@/components/Button";
 import Switcher from "@/components/Switcher";
 import TextInput from "@/components/TextInput";
-import { gameMode } from "@/lib/const";
+import { gameMode } from "@/constants/gameMode";
 import { useState } from "react";
 
 export default function CreatePage() {

@@ -1,5 +1,5 @@
 import PlayersPanel from "@/components/PlayersPanel";
-import { PlayerStatusType } from "@/lib/type";
+import { PlayerStatusType } from "@/types/player";
 import Button from "@/components/Button";
 import CopyButton from "@/components/CopyButton";
 

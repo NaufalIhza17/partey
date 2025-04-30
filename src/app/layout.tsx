@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html>
       <body
-        className={`${plusJakartaSans.variable} antialiased bg-[#DBDBDB]`}
+        className={`${plusJakartaSans.variable} antialiased bg-[#DBDBDB] overflow-hidden`}
       >
         {children}
       </body>
